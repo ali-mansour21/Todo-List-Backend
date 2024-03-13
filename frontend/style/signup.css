@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container h1 {
+  color: rgb(63, 181, 141);
+}
+.container form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgb(63, 181, 141, 0.9);
+  border-radius: 3px;
+  padding: 20px;
+}
+.container form label {
+  font-size: 17px;
+  font-weight: 300;
+}
+.container form input {
+  width: 250px;
+  padding: 8px;
+  border: 1px solid rgb(63, 181, 141);
+  border-radius: 3px;
+}
+.container form .btn {
+  width: 150px;
+  padding: 7px;
+  margin-top: 7px;
+  background-color: rgb(63, 181, 141, 0.9);
+  border: none;
+  font-size: 17px;
+  border-radius: 3px;
+  color: #ffff;
+  transition: 0.3s background-color ease;
+}
+.container form .btn:hover {
+  cursor: pointer;
+  background-color: rgb(38, 128, 98);
+}
+.loginacconut {
+  font-size: 15px;
+  color: #c7c6c6;
+}
+.loginacconut a {
+  color: black;
+}
+.loginacconut a:hover {
+  color: rgb(63, 181, 141, 0.9);
+}
