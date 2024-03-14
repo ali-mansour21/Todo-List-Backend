@@ -1,6 +1,6 @@
 <?php
 include "./connection.php";
-$user_id = isset($_POST['user_id']) ? $_POST['user_id'] : null;
+$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
 
 
 $query = $conn->prepare('select * from tasks where user_id = ?');
