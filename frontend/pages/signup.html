@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h1>Sign Up</h1>
-      <form id="signupForm">
+      <form id="signupForm" method="post">
         <input
           type="text"
           name="username"
@@ -30,9 +30,11 @@
         />
         <button type="submit" class="btn">Create</button>
         <p class="loginacconut">
-          Already have an account? <a href="./login.html">login</a>
+          Already have an account? <a href="../../index.html">login</a>
         </p>
       </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/signup.js"></script>
   </body>
 </html>
