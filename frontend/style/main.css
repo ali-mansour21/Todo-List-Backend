@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+}
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+}
+.container h1 {
+  color: rgb(63, 181, 141);
+}
+.container .input-form,
+.container .tasks-container {
+  margin-top: 15px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 #00000020;
+}
+.container .input-form {
+  display: flex;
+  width: 500px;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .inputOne {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.container .inputTwo {
+  display: flex;
+  flex-direction: column;
+}
+.container label {
+  margin-bottom: 5px;
+  font-size: 19px;
+}
+.container input {
+  padding: 10px;
+  border-bottom: 1px solid rgb(63, 181, 141);
+}
+.container input:focus {
+  outline: none;
+}
+.container input::placeholder {
+  text-align: center;
+}
+.container .btn {
+  margin-top: 20px;
+  padding: 9px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgb(63, 181, 141);
+  border-radius: 3px;
+  color: #ffff;
+  font-size: 17px;
+  transition: background-color 0.3s ease-in-out;
+}
+.container .btn > svg {
+  width: 20px;
+  color: #fff;
+}
+.container .btn:hover {
+  cursor: pointer;
+  background-color: rgb(38, 128, 98);
+}
+.container .tasks-container {
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 5px;
+}
+@media (max-width: 515px) {
+  .container .tasks-container,
+  .container .input-form {
+    width: 390px;
+  }
+}
+.container .tasks-container > div {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid rgb(63, 181, 141);
+}
+.container .tasks-container > div:not(:last-child) {
+  margin-bottom: 10px;
+}
+.container .tasks-container .header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.container .tasks-container .header > input {
+  width: 30px;
+}
+.container .tasks-container.header h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 300;
+  margin-left: 60px;
+}
+.container .tasks-container.header h2::first-letter {
+  text-transform: capitalize;
+}
+.container .tasks-container.header p {
+  font-size: 17px;
+  margin-top: 10px;
+  padding: 5px;
+  color: #333;
+}
+.container .tasks-container .delete-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.container .tasks-container .delete-item > .delete-button {
+  width: 25px;
+  background-color: transparent;
+  display: flex;
+  gap: 5px;
+}
+.container .tasks-container .delete-item > .delete-button svg {
+  width: 25px;
+}
+.container .tasks-container .delete-item > .delete-button svg:hover {
+  cursor: pointer;
+  color: rgb(248, 63, 7);
+}
+.notasks-message {
+  text-align: center;
+  padding: 10px;
+  color: rgb(63, 181, 141);
+}

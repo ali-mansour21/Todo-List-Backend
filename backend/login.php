@@ -14,7 +14,7 @@ if ($is_email) {
 }
 $query->execute();
 $query->store_result();
-$query->bind_result($id, $username, $email, $password);
+$query->bind_result($id, $username, $email, $password, $score);
 $check_user = $query->fetch();
 if ($check_user == 0) {
     $response['status'] = "Account not found";
