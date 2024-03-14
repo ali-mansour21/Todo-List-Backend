@@ -2,6 +2,7 @@ const data = document.getElementById("data");
 const password = document.getElementById("password");
 const loginForm = document.getElementById("loginForm");
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+let userId;
 const validateUser = async () => {
   const inputValue = data.value.trim();
   const userData = new FormData();
@@ -16,7 +17,8 @@ const validateUser = async () => {
       "http://localhost/tasks_system/backend/login.php",
       userData
     );
-    console.log(response.data);
+    userId = response.data.id;
+    localStorage.setItem("userId", userId);
     if (response.data.status === "logged in") {
       window.location.href = "http://127.0.0.1:5500/frontend/pages/home.html";
     }

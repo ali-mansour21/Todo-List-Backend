@@ -67,7 +67,7 @@ ul {
   font-size: 17px;
   transition: background-color 0.3s ease-in-out;
 }
-.container .btn > svg {
+.container .btn > img {
   width: 20px;
   color: #fff;
 }

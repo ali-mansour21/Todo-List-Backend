@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h1>Lets Get Some Progress!!</h1>
-      <div class="input-form">
+      <form class="input-form" id="taskForm">
         <div class="inputOne">
           <label for="title">Enter the title</label>
           <input
@@ -28,25 +28,14 @@
             placeholder="Description goes here"
           />
         </div>
-        <button class="btn" id="addTask">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
+        <button type="submit" class="btn" id="addTask">
+          <img src="../assets/plus-solid.svg" alt="" srcset="" />
           Add
         </button>
-      </div>
+      </form>
       <div class="tasks-container" id="tasksContainer"></div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/tasks.js"></script>
   </body>
 </html>
