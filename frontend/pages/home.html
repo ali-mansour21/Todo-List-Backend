@@ -37,6 +37,32 @@
       <div class="tasks-container" id="tasksContainer"></div>
     </div>
     <div class="toast-message" id="toast-container"></div>
+    <div id="editPopup" class="edit-popup hide-popup">
+      <div class="edit-popup-content">
+        <span class="close-edit-popup" id="close-edit">&times;</span>
+        <h2>Edit Task</h2>
+        <form id="editTaskForm">
+          <input
+            type="text"
+            id="editTitle"
+            name="editTitle"
+            placeholder="enter a title"
+            required
+          />
+          <textarea
+            id="editDescription"
+            name="editDescription"
+            placeholder="enter a description"
+            required
+          ></textarea>
+          <select name="status" id="status">
+            <option value="0">New</option>
+            <option value="1">Finised</option>
+          </select>
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/tasks.js"></script>
   </body>

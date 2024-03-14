@@ -170,3 +170,60 @@ ul {
 .toast.show {
   opacity: 1;
 }
+.edit-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.edit-popup-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+.close-edit-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.edit-popup h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.edit-popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-popup form input,
+.edit-popup form textarea,
+.edit-popup form select {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.edit-popup form button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-popup form button:hover {
+  background-color: #45a049;
+}
+.hide-popup {
+  display: none;
+}
