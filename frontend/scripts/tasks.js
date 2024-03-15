@@ -39,7 +39,6 @@ const loadTasks = async () => {
       )}`
     );
     tasks = response.data.allTasks;
-    console.log(tasks);
     if (Object.keys(tasks).length > 0) {
       for (let i = 0; i < tasks.length; i++) {
         tasksContainer.innerHTML += generateTasks(tasks[i]);

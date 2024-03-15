@@ -16,7 +16,7 @@ while ($query->fetch()) {
         'description' => $description,
         'status' => $status
     ];
-    $response['allTasks'] = $task;
+    $response['allTasks'][] = $task;
 }
 $get_score_query = $conn->prepare('SELECT score FROM users WHERE id = ?');
 $get_score_query->bind_param('i', $user_id);
