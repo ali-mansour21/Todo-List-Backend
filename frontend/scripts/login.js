@@ -22,9 +22,7 @@ const validateUser = async () => {
     if (response.data.status === "logged in") {
       window.location.href = "http://127.0.0.1:5500/frontend/pages/home.html";
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();

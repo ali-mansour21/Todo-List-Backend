@@ -7,6 +7,7 @@ const editPop = document.getElementById("editPopup");
 const editTaskForm = document.getElementById("editTaskForm");
 let tasks = [];
 let editedTask;
+let editTaskId;
 const createTask = async () => {
   const userId = localStorage.getItem("userId");
   const taskData = new FormData();
@@ -20,9 +21,7 @@ const createTask = async () => {
     );
     loadTasks();
     showToast("Task created successfully");
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
   tasktitle.value = "";
   taskDescription.value = "";
 };
@@ -37,12 +36,14 @@ const loadTasks = async () => {
       )}`
     );
     tasks = response.data;
-    tasks.forEach((task) => {
-      tasksContainer.innerHTML += generateTasks(task);
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    if (tasks.length > 0) {
+      tasks.forEach((task) => {
+        tasksContainer.innerHTML += generateTasks(task);
+      });
+    } else {
+      tasksContainer.innerHTML = `<div class="no-tasks">No tasks found</div>`;
+    }
+  } catch (error) {}
 };
 function generateTasks(task) {
   const { id, title, description, status } = task;
@@ -98,8 +99,6 @@ const showToast = (message, type = "info") => {
     toast.classList.add("show");
   }, 10);
 };
-
-loadTasks();
 taskForm.addEventListener("submit", (e) => {
   e.preventDefault();
   createTask();
@@ -117,26 +116,11 @@ const handleEditTask = (id) => {
     editDescription.value = description;
     editStatus.value = status;
     const editTask = new FormData();
-    editTask.append("title", editTitle.value);
-    editTask.append("description", editDescription.value);
+    editTask.append("title", editTitle.value.trim());
+    editTask.append("description", editDescription.value.trim());
     editTask.append("status", parseInt(editStatus.value));
     editTask.append("user_id", parseInt(userId));
     editTask.append("id", parseInt(id));
-    console.log(editTask.get("status"));
-    editTaskForm.addEventListener("submit", async (e) => {
-      try {
-        e.preventDefault();
-        const result = await axios.post(
-          "http://localhost/tasks_system/backend/editTasks.php",
-          editTask
-        );
-        console.log(result);
-        await loadTasks();
-        showToast("Task edited successfully");
-      } catch (error) {
-        console.log(error);
-      }
-    });
   }
 };
 const handleDeleteTask = async (id) => {
@@ -149,7 +133,6 @@ const handleDeleteTask = async (id) => {
       "http://localhost/tasks_system/backend/deleteTasks.php",
       deleteForm
     );
-    console.log(response);
     await loadTasks();
     showToast("Task deleted successfully");
   } catch (error) {}
@@ -165,9 +148,36 @@ document.addEventListener("click", async (e) => {
   if (editButton) {
     editPop.classList.remove("hide-popup");
     const taskId = editButton.getAttribute("data-edit-id");
+    editTaskId = taskId;
     handleEditTask(taskId);
   }
 });
 closePopUp.addEventListener("click", () => {
   editPop.classList.add("hide-popup");
 });
+editTaskForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const editTitle = document.getElementById("editTitle").value.trim();
+  const editDescription = document
+    .getElementById("editDescription")
+    .value.trim();
+  const editStatus = parseInt(document.getElementById("status").value);
+  const userId = parseInt(localStorage.getItem("userId"));
+  const taskId = parseInt(editTaskId);
+  const editTask = new FormData();
+  editTask.append("title", editTitle);
+  editTask.append("description", editDescription);
+  editTask.append("status", editStatus);
+  editTask.append("user_id", userId);
+  editTask.append("id", taskId);
+  try {
+    const result = await axios.post(
+      "http://localhost/tasks_system/backend/editTasks.php",
+      editTask
+    );
+    await loadTasks();
+    showToast("Task edited successfully");
+    editPop.classList.add("hide-popup");
+  } catch (error) {}
+});
+loadTasks();

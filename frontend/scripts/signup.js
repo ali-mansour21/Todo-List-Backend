@@ -21,9 +21,7 @@ const createNewUser = async () => {
     if (response.status === 200) {
       window.location.href = "http://127.0.0.1:5500/index.html";
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 createForm.addEventListener("submit", (e) => {
   e.preventDefault();
