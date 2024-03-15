@@ -5,6 +5,9 @@ const tasksContainer = document.getElementById("tasksContainer");
 const closePopUp = document.getElementById("close-edit");
 const editPop = document.getElementById("editPopup");
 const editTaskForm = document.getElementById("editTaskForm");
+const userScore = document.getElementById("score-data");
+let score = 0;
+userScore.innerHTML = score;
 let tasks = [];
 let editedTask;
 let editTaskId;
@@ -35,14 +38,16 @@ const loadTasks = async () => {
         userId
       )}`
     );
-    tasks = response.data;
-    if (tasks.length > 0) {
-      tasks.forEach((task) => {
-        tasksContainer.innerHTML += generateTasks(task);
-      });
+    tasks = response.data.allTasks;
+    console.log(tasks);
+    if (Object.keys(tasks).length > 0) {
+      for (let i = 0; i < tasks.length; i++) {
+        tasksContainer.innerHTML += generateTasks(tasks[i]);
+      }
     } else {
       tasksContainer.innerHTML = `<div class="no-tasks">No tasks found</div>`;
     }
+    userScore.innerHTML = response.data.score.score;
   } catch (error) {}
 };
 function generateTasks(task) {
@@ -175,6 +180,10 @@ editTaskForm.addEventListener("submit", async (e) => {
       "http://localhost/tasks_system/backend/editTasks.php",
       editTask
     );
+    if (result.data.score) {
+      score = result.data.score.score;
+    }
+    userScore.innerText = score;
     await loadTasks();
     showToast("Task edited successfully");
     editPop.classList.add("hide-popup");

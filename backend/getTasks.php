@@ -16,6 +16,12 @@ while ($query->fetch()) {
         'description' => $description,
         'status' => $status
     ];
-    $response[] = $task;
+    $response['allTasks'] = $task;
 }
+$get_score_query = $conn->prepare('SELECT score FROM users WHERE id = ?');
+$get_score_query->bind_param('i', $user_id);
+$get_score_query->execute();
+$get_score_result = $get_score_query->get_result();
+$user = $get_score_result->fetch_assoc();
+$response['score'] = $user;
 echo json_encode($response);
