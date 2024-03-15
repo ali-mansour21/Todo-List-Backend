@@ -6,6 +6,7 @@ const closePopUp = document.getElementById("close-edit");
 const editPop = document.getElementById("editPopup");
 const editTaskForm = document.getElementById("editTaskForm");
 let tasks = [];
+let editedTask;
 const createTask = async () => {
   const userId = localStorage.getItem("userId");
   const taskData = new FormData();
@@ -97,35 +98,66 @@ const showToast = (message, type = "info") => {
     toast.classList.add("show");
   }, 10);
 };
-const handleEditTask = (id) => {
-  const userId = localStorage.getItem("userId");
-  const title = document.getElementById("editTitle");
-  const description = document.getElementById("editDescription");
-  const status = document.getElementById("status");
-  const task = tasks.find((task) => task.id === parseInt(id));
-  if (task) {
-      const editedTask = new FormData();
-    title.value = task.title;
-    description.value = task.description;
-    status.value = task.status;
 
-    editedTask.append("title", title.value);
-    editedTask.append("description", description.value);
-    editedTask.append("status", status.value);
-    editedTask.append("id", id);
-    editedTask.append("user_id", userId);
-    return editedTask;
-  }
-};
 loadTasks();
 taskForm.addEventListener("submit", (e) => {
   e.preventDefault();
   createTask();
 });
-document.addEventListener("click", (e) => {
+const handleEditTask = (id) => {
+  const userId = localStorage.getItem("userId");
+  const editTitle = document.getElementById("editTitle");
+  const editDescription = document.getElementById("editDescription");
+  const editStatus = document.getElementById("status");
+  const task = tasks.find((task) => task.id === parseInt(id));
+
+  if (task) {
+    const { title, description, status } = task;
+    editTitle.value = title;
+    editDescription.value = description;
+    editStatus.value = status;
+    const editTask = new FormData();
+    editTask.append("title", editTitle.value);
+    editTask.append("description", editDescription.value);
+    editTask.append("status", parseInt(editStatus.value));
+    editTask.append("user_id", parseInt(userId));
+    editTask.append("id", parseInt(id));
+    console.log(editTask.get("status"));
+    editTaskForm.addEventListener("submit", async (e) => {
+      try {
+        e.preventDefault();
+        const result = await axios.post(
+          "http://localhost/tasks_system/backend/editTasks.php",
+          editTask
+        );
+        console.log(result);
+        await loadTasks();
+        showToast("Task edited successfully");
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
+};
+const handleDeleteTask = async (id) => {
+  const userId = localStorage.getItem("userId");
+  const deleteForm = new FormData();
+  deleteForm.append("id", parseInt(id));
+  deleteForm.append("user_id", parseInt(userId));
+  try {
+    const response = await axios.post(
+      "http://localhost/tasks_system/backend/deleteTasks.php",
+      deleteForm
+    );
+    console.log(response);
+    await loadTasks();
+    showToast("Task deleted successfully");
+  } catch (error) {}
+};
+document.addEventListener("click", async (e) => {
   const deleteButton = e.target.closest(".delete-now");
   if (deleteButton) {
-    const taskId = deleteButton.getAttribute("data-task-id");
+    const taskId = deleteButton.getAttribute("data-delete-id");
     handleDeleteTask(taskId);
   }
 
@@ -133,24 +165,9 @@ document.addEventListener("click", (e) => {
   if (editButton) {
     editPop.classList.remove("hide-popup");
     const taskId = editButton.getAttribute("data-edit-id");
-    console.log(taskId);
     handleEditTask(taskId);
   }
 });
 closePopUp.addEventListener("click", () => {
   editPop.classList.add("hide-popup");
-});
-editTaskForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const editedTask = handleEditTask();
-  try {
-    const response = await axios.post(
-      "http://localhost/tasks_system/backend/editTasks.php",
-      editedTask
-    );
-    console.log(response);
-    loadTasks();
-  } catch (error) {
-    console.log(error);
-  }
 });
